@@ -4,11 +4,8 @@
       <bar v-bind:settings="settings" v-bind:result="result" v-on:set="$emit('set', $event)"/>
       <mdb-card id="typing-area">
         <mdb-card-body>
-          here because ask few program between or those eye move plan go each
-          before each so because from little end will line after general
-          here up one it some after become before ask then while this own again
-          if large leave like follow so ask use many and develop peoples
-          <controls v-bind:word="'test'"/>
+          {{ result.words.map(({ word }) => word).join(' ') }}
+          <controls v-bind:word="word.word" v-on:nextWord="$emit('nextWord', $event)"/>
         </mdb-card-body>
       </mdb-card>
     </div>
@@ -22,7 +19,27 @@ import controls from '../molecules/controls.vue';
 
 export default {
   name: 'commandCenter',
-  props: ['settings', 'result'],
+  props: {
+    settings: {
+      mode: String,
+      measurement: String,
+      seconds: Number,
+      words: Number,
+    },
+    result: {
+      words: [{
+        wrong: Boolean,
+        typed: Boolean,
+        word: String,
+      }],
+      seconds: Number,
+    },
+    word: {
+      wrong: Boolean,
+      typed: Boolean,
+      word: String,
+    },
+  },
   components: {
     bar,
     mdbContainer,

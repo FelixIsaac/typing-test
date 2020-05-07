@@ -2,23 +2,33 @@
   <div>
     <template>
       <span v-show="measurement === 'wps'">
-        WPS: {{ (wordsTyped.correct / seconds).toFixed(1) }}
+        WPS: {{ (correctWords / seconds).toFixed(1) }}
       </span>
       <span v-show="measurement === 'wpm'">
-        WPM: {{ (wordsTyped.correct / (seconds / 60)).toFixed(1) }}
+        WPM: {{ (correctWords / (seconds / 60)).toFixed(1) }}
       </span>
     </template>
-    <span>/ ACC: {{ ((wordsTyped.correct - wordsTyped.incorrect) / totalTyped) * 100 }}%</span>
+    <span>/ ACC: {{ (((correctWords - incorrectWords) / totalTyped) * 100).toFixed(1) }}%</span>
   </div>
 </template>
 
 <script>
 export default {
   name: 'matrix',
-  props: ['measurement', 'wordsTyped', 'seconds'],
+  props: {
+    measurement: String,
+    words: [],
+    seconds: Number,
+  },
   computed: {
     totalTyped() {
-      return this.wordsTyped.incorrect + this.wordsTyped.correct;
+      return this.incorrectWords + this.correctWords;
+    },
+    correctWords() {
+      return this.words.filter(({ wrong }) => !wrong).length;
+    },
+    incorrectWords() {
+      return this.words.filter(({ wrong }) => wrong).length;
     },
   },
 };

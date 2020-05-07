@@ -3,7 +3,7 @@
     <quick-settings v-bind:mode="settings.mode" v-on:set="$emit('set', $event)"/>
     <matrix
       v-bind:measurement="settings.measurement"
-      v-bind:words-typed="result.wordsTyped"
+      v-bind:words="result.words"
       v-bind:seconds="result.seconds"/>
   </div>
 </template>
@@ -17,9 +17,6 @@ export default {
   props: ['settings', 'result'],
   components: {
     quickSettings, matrix,
-  },
-  created() {
-    console.log(this.settings, this.result);
   },
 };
 </script>
