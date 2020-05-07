@@ -1,14 +1,18 @@
 {
-  "name": "Typing test",
+  "name": "typing-test",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "vue-cli-service serve --open"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
+    "bootstrap-css-only": "^4.4.1",
     "core-js": "^3.6.4",
+    "mdbvue": "6.7.1",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
     "vue-material": "^1.0.0-beta-13",
@@ -29,6 +33,7 @@
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^6.2.2",
     "typescript": "~3.8.3",
+    "vue-cli-plugin-mdb": "~2.1.0",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
