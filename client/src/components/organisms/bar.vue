@@ -1,25 +1,32 @@
 <template>
   <div class="bar">
-    <quick-settings v-bind:mode="settings.mode"/>
-    <matrix measurement="settings.measurement" words-typed="result.wordsTyped" seconds="result.seconds"/>
+    <quick-settings v-bind:mode="settings.mode" v-on:set="$emit('set', $event)"/>
+    <matrix
+      v-bind:measurement="settings.measurement"
+      v-bind:words-typed="result.wordsTyped"
+      v-bind:seconds="result.seconds"/>
   </div>
 </template>
 
 <script>
-  import quickSettings from "../molecules/quickSettings";
-  import matrix from "../molecules/matrix";
+import quickSettings from '../molecules/quickSettings.vue';
+import matrix from '../molecules/matrix.vue';
 
-  export default {
-    name: "bar",
-    props: ['settings', result],
-    components: {
-      quickSettings, matrix
-    }
-  }
+export default {
+  name: 'bar',
+  props: ['settings', 'result'],
+  components: {
+    quickSettings, matrix,
+  },
+  created() {
+    console.log(this.settings, this.result);
+  },
+};
 </script>
 
 <style scoped>
   .bar {
+    font-size: 18px;
     display: flex;
     justify-content: space-between;
   }

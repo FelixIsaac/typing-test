@@ -1,23 +1,23 @@
 <template>
   <div>
-    <span v-on:click="$emit('setTime')">15</span>
-    <text>/</text>
-    <span v-on:click="$emit('setTime')">30</span>
-    <text>/</text>
-    <span v-on:click="$emit('setTime')">60</span>
-    <text>/</text>
-    <span v-on:click="$emit('setTime')">120</span>
-    <text>/</text>
-    <span v-on:click="$emit('setTime')">240</span>
-    <text>/</text>
-    <span v-on:click="$emit('setTime')">360</span>
+    <span v-on:click="$emit('setTime', 15)">15</span>
+    /
+    <span v-on:click="$emit('setTime', 30)">30</span>
+    /
+    <span v-on:click="$emit('setTime', 60)">60</span>
+    /
+    <span v-on:click="$emit('setTime', 120)">120</span>
+    /
+    <span v-on:click="$emit('setTime', 240)">240</span>
+    /
+    <span v-on:click="$emit('setTime', 360)">360</span>
   </div>
 </template>
 
 <script>
-  export default {
-    name: "timer"
-  }
+export default {
+  name: 'timer',
+};
 </script>
 
 <style scoped>
