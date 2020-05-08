@@ -24,11 +24,11 @@ export default {
   },
   methods: {
     accuracy() {
-      const typedWords = this.words.filter(({ typed }) => typed);
-      const arr = this.correctWords() - this.incorrectWords() / typedWords;
+      const typedWords = this.words.filter(({ typed }) => typed).length;
+      const acc = ((this.correctWords() - this.incorrectWords()) / typedWords) * 100;
 
-      if (Number.isNaN(arr) || (Math.sign(arr)).valueOf() === -1) return '0.0';
-      return arr.toFixed(1).toString();
+      if (Number.isNaN(acc) || (Math.sign(acc)).valueOf() === -1) return '0.0';
+      return acc.toFixed(1).toString();
     },
     correctWords() {
       return this.words.filter(({ wrong, typed }) => !wrong && typed).length;

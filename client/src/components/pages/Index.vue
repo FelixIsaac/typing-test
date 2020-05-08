@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       settings: {
-        mode: 'words',
+        mode: 'timer',
         measurement: 'wpm',
         seconds: 60,
         words: 50,
@@ -57,7 +57,6 @@ export default {
     end() {
       if (!this.started) return;
 
-      console.log('ended');
       this.started = false;
       clearInterval(this.interval);
     },
