@@ -14,11 +14,7 @@
           >
             {{ word.word }}
           </span>
-          <controls
-            v-on:nextWord="nextWord($event)"
-            v-on:start="$emit('start')"
-            v-on:end="$emit('end')"
-          />
+          <controls v-on:nextWord="nextWord($event)" v-on:start="$emit('start')"/>
         </mdb-card-body>
       </mdb-card>
     </div>
@@ -83,6 +79,12 @@ export default {
           word: this.result.words[index].word,
           newWord: Word,
         };
+      }
+
+      // check if user completed text
+      if (this.settings.mode === 'words') {
+        // no more words to be typed, end typing test
+        if (!this.result.words.filter(({ typed: t }) => !t).length) this.$emit('end');
       }
     },
   },

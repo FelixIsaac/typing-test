@@ -2,14 +2,14 @@
   <div>
     <template>
       <span v-if="measurement === 'wps'">
-        WPS: {{ ((correctWords / seconds) | 0).toFixed(1) }}
+        WPS: {{ ((correctWords() / seconds) | 0).toFixed(1) }}
       </span>
       <span v-else>
-        WPM: {{ ((correctWords / (seconds / 60)) | 0).toFixed(1) }}
+        WPM: {{ ((correctWords() / (seconds / 60)) | 0).toFixed(1) }}
       </span>
     </template>
     <span>
-      / ACC: {{ ((((correctWords - incorrectWords) / totalTyped) | 0) * 100).toFixed(1) }}%
+      / ACC: {{ accuracy() }}%
     </span>
   </div>
 </template>
@@ -22,9 +22,13 @@ export default {
     words: [],
     seconds: Number,
   },
-  computed: {
-    totalTyped() {
-      return this.incorrectWords + this.correctWords;
+  methods: {
+    accuracy() {
+      const typedWords = this.words.filter(({ typed }) => typed);
+      const arr = this.correctWords() - this.incorrectWords() / typedWords;
+
+      if (Number.isNaN(arr) || (Math.sign(arr)).valueOf() === -1) return '0.0';
+      return arr.toFixed(1).toString();
     },
     correctWords() {
       return this.words.filter(({ wrong, typed }) => !wrong && typed).length;

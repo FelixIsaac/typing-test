@@ -5,6 +5,7 @@
       v-bind:result="result"
       v-on:set="setSettings($event)"
       v-on:start="start()"
+      v-on:end="end()"
     />
   </div>
 </template>
@@ -20,8 +21,8 @@ export default {
   data() {
     return {
       settings: {
-        mode: 'timer',
-        measurement: 'wps',
+        mode: 'words',
+        measurement: 'wpm',
         seconds: 60,
         words: 50,
       },
@@ -32,6 +33,7 @@ export default {
         seconds: 0,
       },
       started: false,
+      interval: null,
     };
   },
   methods: {
@@ -40,17 +42,24 @@ export default {
       return this.settings;
     },
     start() {
-      if (!this.started) {
-        this.started = true;
+      if (this.started) return;
 
-        const interval = setInterval(() => {
-          this.result.seconds += 1;
-          if (this.result.seconds >= this.settings.seconds) {
-            clearInterval(interval);
-            this.started = false;
-          }
-        }, 1000);
-      }
+      this.started = true;
+
+      this.interval = setInterval(() => {
+        this.result.seconds += 1;
+        if (this.result.seconds >= this.settings.seconds) {
+          clearInterval(this.interval);
+          this.started = false;
+        }
+      }, 1000);
+    },
+    end() {
+      if (!this.started) return;
+
+      console.log('ended');
+      this.started = false;
+      clearInterval(this.interval);
     },
   },
 };
