@@ -34,6 +34,7 @@ export default {
   },
   methods: {
     setText(word) {
+      this.$emit('start');
       const key = word[word.length - 1];
 
       if (key && key.startsWith(' ')) {

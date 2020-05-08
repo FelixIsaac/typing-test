@@ -14,7 +14,7 @@
           >
             {{ word.word }}
           </span>
-          <controls v-on:nextWord="nextWord($event)"/>
+          <controls v-on:nextWord="nextWord($event)" v-on:start="$emit('start')"/>
         </mdb-card-body>
       </mdb-card>
     </div>
@@ -80,9 +80,6 @@ export default {
           newWord: Word,
         };
       }
-    },
-    log(cat) {
-      console.log('test', cat);
     },
   },
 };
