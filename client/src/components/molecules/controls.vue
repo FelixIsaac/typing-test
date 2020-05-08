@@ -8,8 +8,7 @@
       tabindex="1"
       style="direction: ltr;"
       autofocus
-      v-bind:placeholder="word"
-      v-bind:value="inputWord"
+      v-model="inputWord"
       v-on:input="setText($event)"
     >
       <mdb-btn color="dark" size="md" group slot="append">Redo</mdb-btn>
@@ -25,9 +24,6 @@ import { mdbInput, mdbBtn, mdbIcon } from 'mdbvue';
 
 export default {
   name: 'controls',
-  props: {
-    word: String,
-  },
   components: {
     mdbInput, mdbBtn, mdbIcon,
   },
@@ -40,8 +36,7 @@ export default {
     setText(word) {
       const key = word[word.length - 1];
 
-      console.log(word, key);
-      if (key.startsWith(' ')) {
+      if (key && key.startsWith(' ')) {
         this.inputWord = '';
         this.$emit('nextWord', word);
       }

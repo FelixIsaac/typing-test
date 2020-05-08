@@ -4,8 +4,17 @@
       <bar v-bind:settings="settings" v-bind:result="result" v-on:set="$emit('set', $event)"/>
       <mdb-card id="typing-area">
         <mdb-card-body>
-          {{ result.words.map(({ word }) => word).join(' ') }}
-          <controls v-bind:word="word.word" v-on:nextWord="$emit('nextWord', $event)"/>
+          <span
+            v-for="(word, key) in result.words"
+            v-bind:key="key"
+            v-bind:class="{
+              'incorrect': word.wrong && word.typed,
+              'correct': !word.wrong && word.typed
+            }"
+          >
+            {{ word.word }}
+          </span>
+          <controls v-on:nextWord="nextWord($event)"/>
         </mdb-card-body>
       </mdb-card>
     </div>
@@ -47,6 +56,35 @@ export default {
     mdbCardBody,
     controls,
   },
+  methods: {
+    nextWord(word) {
+      if (!word) return;
+
+      this.$forceUpdate();
+
+      const index = this.result.words.findIndex(({ typed }) => !typed);
+      const Word = word.trim();
+
+      if (Word === this.result.words[index].word) {
+        this.result.words[index] = {
+          wrong: false,
+          typed: true,
+          word: this.result.words[index].word,
+          newWord: Word,
+        };
+      } else {
+        this.result.words[index] = {
+          wrong: true,
+          typed: true,
+          word: this.result.words[index].word,
+          newWord: Word,
+        };
+      }
+    },
+    log(cat) {
+      console.log('test', cat);
+    },
+  },
 };
 </script>
 
@@ -76,5 +114,13 @@ export default {
     justify-content: space-between;
     font-family: Roboto Mono, sans-serif;
     font-size: 18px;
+  }
+
+  .incorrect {
+    color: #c90707;
+  }
+
+  .correct {
+    color: #05a506;
   }
 </style>
