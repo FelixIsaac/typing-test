@@ -3,7 +3,6 @@
     <command-center
       v-bind:settings="settings"
       v-bind:result="result"
-      v-bind:word="word"
       v-on:set="setSettings($event)"
       v-on:start="start()"
     />
@@ -23,7 +22,7 @@ export default {
       settings: {
         mode: 'timer',
         measurement: 'wps',
-        seconds: 5,
+        seconds: 60,
         words: 50,
       },
       result: {
@@ -41,7 +40,6 @@ export default {
       return this.settings;
     },
     start() {
-      console.log('cat');
       if (!this.started) {
         this.started = true;
 

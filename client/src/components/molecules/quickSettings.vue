@@ -3,6 +3,8 @@
     <timer
       v-show="mode === 'timer'"
       v-on:setTime="$emit('set', { value: $event, type: 'seconds' })"
+      v-bind:setSeconds="setSeconds"
+      v-bind:currSeconds="currSeconds"
     />
     <words
       v-show="mode === 'words'"
@@ -17,7 +19,7 @@ import words from '../atoms/quickSettings/words.vue';
 
 export default {
   name: 'quickSettings',
-  props: ['mode'],
+  props: ['mode', 'setSeconds', 'currSeconds'],
   components: {
     timer, words,
   },
