@@ -19,7 +19,7 @@ export default {
   name: 'matrix',
   props: {
     measurement: String,
-    words: [],
+    words: Array,
     seconds: Number,
   },
   methods: {
