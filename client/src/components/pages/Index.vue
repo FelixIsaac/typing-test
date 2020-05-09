@@ -21,10 +21,32 @@ export default {
   data() {
     return {
       settings: {
-        mode: 'timer',
         measurement: 'wpm',
+        mode: 'words',
+        punctuation: false,
+        caps: true,
+        wordLength: {
+          length: 7,
+          selectOnly: 'below',
+        },
         seconds: 60,
         words: 50,
+      },
+      theme: {
+        commandCenterBody: '',
+        input: '',
+        words: {
+          incorrect: '',
+          correct: '',
+          untyped: '',
+        },
+        quickSettings: '',
+        selectedQuickSetting: '',
+        result: '',
+        redoBtn: {
+          body: '',
+          text: '',
+        },
       },
       result: {
         words: 'here because ask few program between or those ey move plan go each before'.split(' ').map((word) => ({
