@@ -12,7 +12,12 @@
       v-on:input="setText($event)"
     >
       <mdb-btn color="dark" size="md" group slot="append">Redo</mdb-btn>
-      <mdb-btn color="white" size="md" group slot="append">
+      <mdb-btn
+        color="white"
+        size="md"
+        group slot="append"
+        v-on:click="$emit('settings')"
+      >
         <mdb-icon icon="cog"/>
       </mdb-btn>
     </mdb-input>

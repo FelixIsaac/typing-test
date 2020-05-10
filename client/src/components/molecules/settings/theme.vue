@@ -91,7 +91,7 @@ export default {
             let word = key[0].toUpperCase() + key.slice(1);
             if (prefix) word = `${prefix[0].toUpperCase() + prefix.slice(1)}${word}`;
             result.push({
-              word: word.match(/[A-Z][a-z]+/g).join(' '),
+              word: word.match(/[A-Z][a-z]+/g).join(' ').replace('Btn', 'Button'),
               key: prefix ? `${prefix}.${key}` : key,
             });
           }
@@ -101,6 +101,15 @@ export default {
       convertToArray(this.theme);
       return result;
     },
+  },
+  updated() {
+    const key = this.selectedPicker;
+    if (!key) return;
+
+    this.$emit('set', {
+      key,
+      value: this.selectedPicker.split('.').reduce((a, b) => a[b], this.theme),
+    });
   },
 };
 </script>

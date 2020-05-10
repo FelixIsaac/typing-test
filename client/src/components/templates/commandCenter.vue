@@ -14,7 +14,11 @@
           >
             {{ word.word }}
           </span>
-          <controls v-on:nextWord="nextWord($event)" v-on:start="$emit('start')"/>
+          <controls
+            v-on:nextWord="nextWord($event)"
+            v-on:start="$emit('start')"
+            v-on:settings="$emit('settings')"
+          />
         </mdb-card-body>
       </mdb-card>
     </div>
