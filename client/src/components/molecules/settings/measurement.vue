@@ -5,14 +5,14 @@
         Measurement
       </mdb-card-title>
       <mdb-card-text>
-        <div>
+        <div class="custom-control custom-checkbox">
           <input
             type="checkbox"
             class="custom-control-input"
             id="check-measurement"
-            v-model="measurement"
+            v-model="mode"
             v-on:change="$emit('select', {
-              key: 'measurement',
+              key: 'mode',
               value: $event
             })"
           />
@@ -23,14 +23,14 @@
             Use WPS instead of WPM
           </label>
         </div>
-        <div>
+        <div class="custom-control custom-checkbox">
           <input
             type="checkbox"
             class="custom-control-input"
             id="time-measurement"
-            v-model="mode"
+            v-model="measurement"
             v-on:change="$emit('select', {
-              key: 'mode',
+              key: 'measurement',
               value: $event
             })"
           />
@@ -38,7 +38,7 @@
             class="custom-control-label"
             for="time-measurement"
           >
-            Use time instead of words
+            Use timer instead of words
           </label>
         </div>
       </mdb-card-text>
@@ -47,16 +47,27 @@
 </template>
 
 <script>
-import { mdbCard, mdbCardBody, mdbCardTitle, mdbCardText, } from 'mdbvue';
+import {
+  mdbCard,
+  mdbCardBody,
+  mdbCardTitle,
+  mdbCardText,
+} from 'mdbvue';
 
 export default {
   name: 'measurement',
-  props: {
-    mode: Boolean,
-    measurement: Boolean,
-  },
   components: {
     mdbCard, mdbCardBody, mdbCardTitle, mdbCardText,
+  },
+  props: {
+    initMode: Boolean,
+    initMeasurement: Boolean,
+  },
+  data() {
+    return {
+      mode: this.initMode,
+      measurement: this.initMeasurement,
+    };
   },
 };
 </script>
