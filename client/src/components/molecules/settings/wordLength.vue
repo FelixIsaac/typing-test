@@ -5,38 +5,72 @@
         Word length
       </mdb-card-title>
       <mdb-card-text>
-        Only give words
-        <mdb-select v-model="options" v-on:getValue="$emit('select', {
-          key: 'selectOnly',
-          value: $event
-        })"/>
-        <mdb-input
-          type="number"
-          v-bind:min="1"
-          v-bind:max="16"
-          v-model:="length"
-          outline
-        />
+        <div class="input-group mb-3">
+          <div class="input-group-prepend mr-2" style="font-size: 16px">
+            Only give words
+          </div>
+          <label>
+            <select class="browser-default custom-select" v-model="selectOnly">
+              <option selected>below</option>
+              <option>exact</option>
+              <option>above</option>
+            </select>
+          </label>
+          <span>
+            <mdb-input
+              type="number"
+              v-bind:min="1"
+              v-bind:max="16"
+              v-model.number="length"
+              v-on:input="$emit('select', {
+                key: 'length',
+                value: $event
+              })"
+              outline
+              noWrapper
+              class="ml-2"
+            />
+          </span>
+        </div>
       </mdb-card-text>
     </mdb-card-body>
   </mdb-card>
 </template>
 
 <script>
-import { mdbCard, mdbCardBody, mdbCardTitle, mdbCardText, mdbSelect, mdbInput } from 'mdbvue';
+import {
+  mdbCard,
+  mdbCardBody,
+  mdbCardTitle,
+  mdbCardText,
+  mdbInput,
+} from 'mdbvue';
 
 export default {
   name: 'wordLength',
-  props: {
-    length: Number,
-    selectOnly: [{
-      text: String,
-      value: String,
-      selected: Boolean
-    }],
-  },
   components: {
-    mdbCard, mdbCardBody, mdbCardTitle, mdbCardText,
+    mdbCard, mdbCardBody, mdbCardTitle, mdbCardText, mdbInput,
+  },
+  props: {
+    initLength: Number,
+    initSelectOnly: String,
+  },
+  data() {
+    return {
+      length: this.initLength,
+      selectOnly: this.initSelectOnly,
+    };
+  },
+  updated() {
+    this.$emit('set', {
+      key: 'length',
+      value: this.length,
+    });
+
+    this.$emit('set', {
+      key: 'selectOnly',
+      value: this.selectOnly,
+    });
   },
 };
 </script>
