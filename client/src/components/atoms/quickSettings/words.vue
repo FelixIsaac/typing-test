@@ -38,7 +38,7 @@
     <span
       v-on:click="$emit('setTime', 300)"
       v-bind:style="{
-        color: setSeconds === 300 ? theme.selectedQuickSetting ? theme.quickSettings,
+        color: setSeconds === 300 ? theme.selectedQuickSetting : theme.quickSettings
       }"
     >300</span>
   </div>

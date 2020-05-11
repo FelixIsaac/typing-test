@@ -9,7 +9,7 @@ export default {
   name: 'app',
   data() {
     return {
-      backgroundColor: '#978a10',
+      backgroundColor: '#464746',
     };
   },
 };

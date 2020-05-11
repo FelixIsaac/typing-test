@@ -46,7 +46,8 @@
         v-bind:settings="settings"
         v-bind:theme="theme"
         v-bind:result="{
-          words: 'cat'.split(' ').map((word) => ({ wrong: false, typed: false, word, newWord: '', })),
+          words: 'cat'.split(' ')
+            .map((word) => ({ wrong: false, typed: false, word, newWord: '', })),
           seconds: 0,
         }"
         class="mt-3"
@@ -97,7 +98,7 @@ export default {
     wordLength,
     config,
     theme,
-    preview
+    preview,
   },
   props: {
     initOpen: Boolean,

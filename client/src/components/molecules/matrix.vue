@@ -22,8 +22,8 @@ export default {
     words: Array,
     seconds: Number,
     theme: {
-      matrix: String
-    }
+      matrix: String,
+    },
   },
   methods: {
     accuracy() {

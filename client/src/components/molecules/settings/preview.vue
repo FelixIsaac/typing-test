@@ -20,12 +20,12 @@ import {
   mdbCard,
   mdbCardHeader,
   mdbCardText,
-  mdbCardBody
+  mdbCardBody,
 } from 'mdbvue';
 import commandCenter from '../../templates/commandCenter.vue';
 
 export default {
-  name: "preview",
+  name: 'preview',
   components: {
     mdbCard,
     mdbCardHeader,
@@ -33,7 +33,7 @@ export default {
     mdbCardBody,
     commandCenter,
   },
-  props: ['settings', 'theme', 'result']
+  props: ['settings', 'theme', 'result'],
 };
 </script>
 

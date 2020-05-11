@@ -5,13 +5,15 @@
   "main": "src/server.ts",
   "scripts": {
     "tsc": "tsc",
-    "build": "npm run tsc && node dist/server",
+    "build": "npm run tsc && npm run serve",
+    "serve": "node dist/server",
     "dev": "nodemon -e ts --exec \"npm run build\""
   },
   "author": "https://felixisaac.dev",
   "license": "MIT",
   "dependencies": {
     "async": "^3.2.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "helmet": "^3.22.0",
     "rate-limiter-flexible": "^2.1.4"
