@@ -109,26 +109,27 @@ export default {
         open: false,
     });
     if (!themeCookie) themeCookie = this.$cookies.set('theme', {
-      mainPage: '#978a10',
-      commandCenterBody: '#00FF00',
-      input: '#FF0000',
-      words: {
-        incorrect: '#0000FF',
-        correct: '#FF00FF',
-        untyped: '#00FFFF',
-      },
-      quickSettings: '#FFFF00',
-      selectedQuickSetting: '#1daf81',
-      result: '#987da3',
+      mainPage: '#464746',
+      commandCenterBody: '#63696A',
+      input: '#6F7778',
+      mainPage: '#464746',
+      matrix: '#FF8700',
+      quickSettings: '#FFAC00',
       redoBtn: {
-        body: '#43ddfa',
-        text: '#b4bf46',
+        body: '#6F7778',
+        text: '#A698C5',
       },
+      result: '#987da3',
+      selectedQuickSetting: '#A698C5',
       settings: {
-        body: '#3287df',
-        text: '#877afd',
+        body: '#A698C5',
+        text: '#6F7778',
       },
-      matrix: '#987654'
+      words: {
+        correct: '#93C247',
+        incorrect: '#EA4221',
+        untyped: '#C8C3B8',
+      }
     });
 
     this.$emit('setBackground', this.$cookies.get('theme').mainPage);
