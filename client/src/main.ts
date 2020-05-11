@@ -4,11 +4,14 @@ import 'mdbvue/lib/css/mdb.min.css';
 import 'vue-material/dist/vue-material.min.css';
 import 'vue-material/dist/theme/default.css';
 import Vue from 'vue';
+import VueCookies from 'vue-cookies';
 import App from './App.vue';
-import './registerServiceWorker';
 import router from './router';
+import './registerServiceWorker';
 
 Vue.config.productionTip = false;
+
+Vue.use(VueCookies);
 
 new Vue({
   router,

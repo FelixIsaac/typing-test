@@ -2,7 +2,7 @@
   <mdb-modal
     size="lg"
     v-bind:show="initOpen"
-    v-on:close="save()"
+    v-on:close="$emit('cancel')"
     class="animated zoom"
     elegant
     scrollable
@@ -58,6 +58,7 @@
         <mdb-btn size="sm">Import settings</mdb-btn>
       </div>
       <div>
+        <mdb-btn color="secondary" size="sm" v-on:click="$emit('cancel')">Cancel</mdb-btn>
         <mdb-btn color="primary" size="sm" v-on:click="save()">Save changes</mdb-btn>
       </div>
     </mdb-modal-footer>

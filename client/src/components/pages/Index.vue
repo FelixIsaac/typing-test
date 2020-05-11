@@ -12,6 +12,7 @@
     <settings
       v-on:close="settings.open = false"
       v-on:save="save($event)"
+      v-on:cancel="cancel()"
       v-bind:initOpen="settings.open"
       v-bind:initTheme="theme"
       v-bind:initSettings="settings"
@@ -31,42 +32,8 @@ export default {
   },
   data() {
     return {
-      settings: {
-        measurement: 'wpm',
-        mode: 'timer',
-        punctuation: false,
-        caps: true,
-        redoHotkey: 'alt+r',
-        wordLength: {
-          length: 7,
-          selectOnly: 'below',
-        },
-        seconds: 60,
-        words: 50,
-        open: false,
-      },
-      theme: {
-        mainPage: '#978a10',
-        commandCenterBody: '#00FF00',
-        input: '#FF0000',
-        words: {
-          incorrect: '#0000FF',
-          correct: '#FF00FF',
-          untyped: '#00FFFF',
-        },
-        quickSettings: '#FFFF00',
-        selectedQuickSetting: '#1daf81',
-        result: '#987da3',
-        redoBtn: {
-          body: '#43ddfa',
-          text: '#b4bf46',
-        },
-        settings: {
-          body: '#3287df',
-          text: '#877afd',
-        },
-        matrix: '#987654'
-      },
+      settings: this.$cookies.get('settings'),
+      theme: this.$cookies.get('theme'),
       result: {
         words: 'here because ask few program between or those ey move plan go each before'.split(' ').map((word) => ({
           wrong: false, typed: false, word, newWord: '',
@@ -106,13 +73,65 @@ export default {
     },
     save(props) {
       this.settings.open = false;
+      if (props.settings.wordLength.length > 16) props.settings.wordLength.length = 16;
+      if (props.settings.wordLength.length < 1) props.settings.wordLength.length = 1;
+
       this.settings = props.settings;
       this.theme = props.theme;
 
-      if (props.settings.wordLength.length > 16) this.settings.wordLength.length = 16;
-      if (props.settings.wordLength.length < 1) this.settings.wordLength.length = 1;
+      this.$cookies.set('settings', props.settings);
+      this.$cookies.set('theme', props.theme);
       this.$emit('setBackground', this.theme.mainPage);
     },
+    cancel() {
+      this.settings.open = false;
+
+      this.settings = this.$cookies.get('settings');
+      this.theme = this.$cookies.get('theme');
+    },
+  },
+  beforeCreate() {
+    let settingsCookie = this.$cookies.get('settings');
+    let themeCookie = this.$cookies.get('theme');
+
+    if (!settingsCookie) settingsCookie = this.$cookies.set('settings', {
+      measurement: 'wpm',
+        mode: 'timer',
+        punctuation: false,
+        caps: true,
+        redoHotkey: 'alt+r',
+        wordLength: {
+        length: 7,
+          selectOnly: 'below',
+      },
+      seconds: 60,
+        words: 50,
+        open: false,
+    });
+    if (!themeCookie) themeCookie = this.$cookies.set('theme', {
+      mainPage: '#978a10',
+      commandCenterBody: '#00FF00',
+      input: '#FF0000',
+      words: {
+        incorrect: '#0000FF',
+        correct: '#FF00FF',
+        untyped: '#00FFFF',
+      },
+      quickSettings: '#FFFF00',
+      selectedQuickSetting: '#1daf81',
+      result: '#987da3',
+      redoBtn: {
+        body: '#43ddfa',
+        text: '#b4bf46',
+      },
+      settings: {
+        body: '#3287df',
+        text: '#877afd',
+      },
+      matrix: '#987654'
+    });
+
+    this.$emit('setBackground', this.$cookies.get('theme').mainPage);
   },
 };
 </script>
