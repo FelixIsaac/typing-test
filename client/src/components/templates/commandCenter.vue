@@ -12,13 +12,12 @@
           <span
             v-for="(word, key) in result.words"
             v-bind:key="key"
-            v-bind:class="{
-              'incorrect': word.wrong && word.typed,
-              'correct': !word.wrong && word.typed
-            }"
             v-bind:style="{
               'color': word.wrong && word.typed ? theme.words.incorrect :
-                !word.wrong && word.typed ? theme.words.correct : theme.words.untyped
+                !word.wrong && word.typed ? theme.words.correct :
+                result.words[key - 1] ?
+                (result.words[key -1].typed ? theme.words.current : theme.words.untyped) :
+                theme.words.current
             }"
           >
             {{ word.word }}
@@ -27,6 +26,7 @@
             v-on:nextWord="nextWord($event)"
             v-on:start="$emit('start')"
             v-on:settings="$emit('settings')"
+            v-on:redo="$emit('redo')"
             v-bind:theme="theme"
           />
         </mdb-card-body>
@@ -148,13 +148,5 @@ export default {
     justify-content: space-between;
     font-family: Roboto Mono, sans-serif;
     font-size: 18px;
-  }
-
-  .incorrect {
-    color: #c90707;
-  }
-
-  .correct {
-    color: #05a506;
   }
 </style>
