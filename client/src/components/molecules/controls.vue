@@ -6,31 +6,52 @@
       autocorrect="off"
       autocapitalize="off"
       tabindex="1"
-      style="direction: ltr;"
+      v-bind:style="{ direction: 'ltr', backgroundColor: theme.input}"
       autofocus
       v-model="inputWord"
       v-on:input="setText($event)"
     >
-      <mdb-btn color="dark" size="md" group slot="append">Redo</mdb-btn>
-      <mdb-btn
-        color="white"
+      <button
         size="md"
-        group slot="append"
+        slot="append"
+        v-bind:style="{ backgroundColor: theme.redoBtn.body, color: theme.redoBtn.text }"
+        class="btn btn-md ripple-parent m-0 px-3 py-2"
+      >
+        Redo
+      </button>
+      <button
+        size="md"
+        slot="append"
         v-on:click="$emit('settings')"
+        v-bind:style="{ backgroundColor: theme.settings.body, color: theme.settings.text }"
+        class="btn btn-md ripple-parent m-0 px-3 py-2"
       >
         <mdb-icon icon="cog"/>
-      </mdb-btn>
+      </button>
     </mdb-input>
   </div>
 </template>
 
 <script>
-import { mdbInput, mdbBtn, mdbIcon } from 'mdbvue';
+import { mdbInput, mdbIcon } from 'mdbvue';
 
 export default {
   name: 'controls',
   components: {
-    mdbInput, mdbBtn, mdbIcon,
+    mdbInput, mdbIcon,
+  },
+  props: {
+    theme: {
+      input: String,
+      redoBtn: {
+        body: String,
+        text: String,
+      },
+      settings: {
+        body: String,
+        text: String,
+      },
+    },
   },
   data() {
     return {

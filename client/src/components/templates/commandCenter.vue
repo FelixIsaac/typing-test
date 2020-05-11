@@ -1,8 +1,13 @@
 <template>
   <mdb-container>
     <div class="command-center mt-5">
-      <bar v-bind:settings="settings" v-bind:result="result" v-on:set="$emit('set', $event)"/>
-      <mdb-card id="typing-area">
+      <bar
+        v-bind:settings="settings"
+        v-bind:theme="theme"
+        v-bind:result="result"
+        v-on:set="$emit('set', $event)"
+      />
+      <mdb-card id="typing-area" v-bind:style="{ backgroundColor: theme.commandCenterBody }">
         <mdb-card-body>
           <span
             v-for="(word, key) in result.words"
@@ -11,6 +16,10 @@
               'incorrect': word.wrong && word.typed,
               'correct': !word.wrong && word.typed
             }"
+            v-bind:style="{
+              'color': word.wrong && word.typed ? theme.words.incorrect :
+                !word.wrong && word.typed ? theme.words.correct : theme.words.untyped
+            }"
           >
             {{ word.word }}
           </span>
@@ -18,6 +27,7 @@
             v-on:nextWord="nextWord($event)"
             v-on:start="$emit('start')"
             v-on:settings="$emit('settings')"
+            v-bind:theme="theme"
           />
         </mdb-card-body>
       </mdb-card>
@@ -51,6 +61,23 @@ export default {
       wrong: Boolean,
       typed: Boolean,
       word: String,
+    },
+    theme: {
+      commandCenterBody: String,
+      input: String,
+      words: {
+        incorrect: String,
+        correct: String,
+        untyped: String,
+      },
+      redoBtn: {
+        body: String,
+        text: String,
+      },
+      settings: {
+        body: String,
+        text: String,
+      },
     },
   },
   components: {

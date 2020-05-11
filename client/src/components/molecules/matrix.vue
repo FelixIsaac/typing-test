@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-bind:style="{ color: theme.matrix }">
     <template>
       <span v-if="measurement === 'wps'">
         WPS: {{ ((correctWords() / seconds) | 0).toFixed(1) }}
@@ -21,6 +21,9 @@ export default {
     measurement: String,
     words: Array,
     seconds: Number,
+    theme: {
+      matrix: String
+    }
   },
   methods: {
     accuracy() {
