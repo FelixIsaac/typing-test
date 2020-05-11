@@ -31,6 +31,9 @@
               class="ml-2"
             />
           </span>
+          <div class="input-group-append mr-2" style="font-size: 16px">
+            characters
+          </div>
         </div>
       </mdb-card-text>
     </mdb-card-body>

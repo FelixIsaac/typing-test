@@ -42,6 +42,15 @@
           <theme v-bind:initTheme="theme" v-on:set="updateThemeSelect($event)"/>
         </mdb-col>
       </mdb-row>
+      <preview
+        v-bind:settings="settings"
+        v-bind:theme="theme"
+        v-bind:result="{
+          words: 'cat'.split(' ').map((word) => ({ wrong: false, typed: false, word, newWord: '', })),
+          seconds: 0,
+        }"
+        class="mt-3"
+      />
     </mdb-modal-body>
     <mdb-modal-footer style="justify-content: space-between;">
       <div>
@@ -70,6 +79,7 @@ import measurement from '../molecules/settings/measurement.vue';
 import wordLength from '../molecules/settings/wordLength.vue';
 import config from '../molecules/settings/config.vue';
 import theme from '../molecules/settings/theme.vue';
+import preview from '../molecules/settings/preview.vue';
 
 export default {
   name: 'settings',
@@ -86,6 +96,7 @@ export default {
     wordLength,
     config,
     theme,
+    preview
   },
   props: {
     initOpen: Boolean,
