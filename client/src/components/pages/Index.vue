@@ -2,6 +2,7 @@
   <div>
     <command-center
       v-bind:settings="settings"
+      v-bind:theme="theme"
       v-bind:result="result"
       v-on:set="setSettings($event)"
       v-on:start="start()"
@@ -45,7 +46,7 @@ export default {
         open: false,
       },
       theme: {
-        mainPage: '#FFF53d',
+        mainPage: '#978a10',
         commandCenterBody: '#00FF00',
         input: '#FF0000',
         words: {
@@ -60,6 +61,11 @@ export default {
           body: '#43ddfa',
           text: '#b4bf46',
         },
+        settings: {
+          body: '#3287df',
+          text: '#877afd',
+        },
+        matrix: '#987654'
       },
       result: {
         words: 'here because ask few program between or those ey move plan go each before'.split(' ').map((word) => ({
@@ -105,6 +111,7 @@ export default {
 
       if (props.settings.wordLength.length > 16) this.settings.wordLength.length = 16;
       if (props.settings.wordLength.length < 1) this.settings.wordLength.length = 1;
+      this.$emit('setBackground', this.theme.mainPage);
     },
   },
 };
