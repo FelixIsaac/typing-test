@@ -28,6 +28,7 @@ export default {
   },
   methods: {
     accuracy() {
+      // finding the percentage of correct typed words over total typed words
       const typedWords = this.words.filter(({ typed }) => typed).length;
       const acc = (this.correctWords() / typedWords) * 100;
 
@@ -36,9 +37,6 @@ export default {
     },
     correctWords() {
       return this.words.filter(({ wrong, typed }) => !wrong && typed).length;
-    },
-    incorrectWords() {
-      return this.words.filter(({ wrong, typed }) => wrong && typed).length;
     },
   },
 };

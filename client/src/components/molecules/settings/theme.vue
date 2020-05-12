@@ -74,9 +74,6 @@ export default {
       if (this.selectedPicker.split('.').length > 1) this.theme[this.selectedPicker.split('.')[0]][this.selectedPicker.split('.')[1]] = hex;
       else this.theme[this.selectedPicker] = hex;
     },
-    log(...f) {
-      console.log(...f);
-    },
   },
   computed: {
     convert() {

@@ -17,7 +17,7 @@
         class="btn btn-md ripple-parent m-0 px-3 py-2"
         v-hotkey="{ [settings.redoHotkey]: { 'keyup': () => $emit('redo') } }"
         v-bind:style="{ backgroundColor: theme.redoBtn.body, color: theme.redoBtn.text }"
-        v-on:click="$emit('redo')"
+        v-on:click="redo()"
       >
         Redo
       </button>
@@ -65,13 +65,25 @@ export default {
   },
   methods: {
     setText(word) {
+      // start the test and countdown the seconds
       this.$emit('start');
       const key = word[word.length - 1];
 
+      // check if there is spaces at the start
+      if (!word.trim().length) {
+        this.inputWord = '';
+        return;
+      }
+
       if (key && key.startsWith(' ')) {
+        // if space, switch to the next word
         this.inputWord = '';
         this.$emit('nextWord', word);
       } else this.$emit('character');
+    },
+    redo() {
+      this.inputWord = '';
+      this.$emit('redo');
     },
   },
 };
