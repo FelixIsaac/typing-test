@@ -19,6 +19,7 @@
       v-bind:initOpen="settings.open"
       v-bind:initTheme="theme"
       v-bind:initSettings="settings"
+      v-bind:words="result.words"
     />
   </div>
 </template>

@@ -1,11 +1,11 @@
 <template>
   <mdb-modal
     size="lg"
-    v-bind:show="initOpen"
-    v-on:close="$emit('cancel')"
-    class="animated zoom"
     elegant
     scrollable
+    v-bind:show="initOpen"
+    v-bind:color="initTheme.commandCenterBody"
+    v-on:close="$emit('cancel')"
   >
     <mdb-modal-header>
       <mdb-modal-title>
@@ -46,8 +46,7 @@
         v-bind:settings="settings"
         v-bind:theme="theme"
         v-bind:result="{
-          words: 'cat'.split(' ')
-            .map((word) => ({ wrong: false, typed: false, word, newWord: '', })),
+          words,
           seconds: 0,
         }"
         class="mt-3"
@@ -131,6 +130,7 @@ export default {
         text: String,
       },
     },
+    words: [],
   },
   data() {
     return {
