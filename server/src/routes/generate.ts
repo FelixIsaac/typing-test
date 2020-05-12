@@ -7,8 +7,8 @@ const router = Router();
 router.get('/', (req, res) => {
   try {
     const response = generate(Number(req.query.length), {
-      'punctuation': Boolean(req.query.punctuation),
-      'caps': Boolean(req.query.caps),
+      'punctuation': req.query.punctuation === 'true',
+      'caps': req.query.caps === 'true',
       'wordLength': {
         'length': Number(req.query.wordLength),
         'selector': String(req.query.wordSelector)

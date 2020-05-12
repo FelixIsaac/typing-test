@@ -1,7 +1,17 @@
 const fs = require('fs');
 const path = require('path');
-const wordList: string[] = fs.readFileSync(path.resolve('assets', 'en.txt'))
-  .toString().split('\n');
+
+interface WordList {
+  short: string[];
+  medium: string[];
+  long: string[];
+};
+
+const wordList: WordList = {
+  short: fs.readFileSync(path.resolve('assets', 'en-short.txt')).toString().split('\n'),
+  medium: fs.readFileSync(path.resolve('assets', 'en-medium.txt')).toString().split('\n'),
+  long: fs.readFileSync(path.resolve('assets', 'en-long.txt')).toString().split('\n')
+};
 
 function filterLength(words: string[], selector: string = 'below', length: number = 7) {
   return words.filter((word: string) => {
@@ -14,8 +24,8 @@ function filterLength(words: string[], selector: string = 'below', length: numbe
 
 export function givePunctuation(words: string[]) {
   return words.map((word: string) => {
-    if (Math.floor(Math.random() * 100) > 85) return word + '.';
-    if (Math.floor(Math.random() * 100) > 90) return word + ',';
+    if (Math.floor(Math.random() * 100) > 90) return word + '.';
+    if (Math.floor(Math.random() * 100) > 95) return word + ',';
 
     return word;
   });
@@ -27,6 +37,12 @@ export function giveCapitalLetters(words: string[]) {
 
     return word;
   });
+}
+
+export function selectWordList(length: number) {
+  if (length <= 5) return wordList.short;
+  if (length <= 9) return wordList.medium;
+  return wordList.long;
 }
 
 interface GenerateOptions {
@@ -43,7 +59,7 @@ export function generate(length: number, options: GenerateOptions) {
   if (isNaN(options.wordLength.length)) options.wordLength.length = 7;
   if (options.wordLength.selector === 'undefined') options.wordLength.selector = 'below';
 
-  const filteredWords: string[] = filterLength(wordList, options.wordLength.selector, options.wordLength.length);
+  const filteredWords: string[] = filterLength(selectWordList(options.wordLength.length), options.wordLength.selector, options.wordLength.length);
   let words: string[] = [];
 
   for (let i = 1; i < length; i++) {
