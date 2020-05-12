@@ -10,7 +10,7 @@
             type="checkbox"
             class="custom-control-input"
             id="check-measurement"
-            v-model="mode"
+            v-model="measurement"
             v-on:change="$emit('select', {
               key: 'measurement',
               value: $event
@@ -28,7 +28,7 @@
             type="checkbox"
             class="custom-control-input"
             id="time-measurement"
-            v-model="measurement"
+            v-model="mode"
             v-on:change="$emit('select', {
               key: 'mode',
               value: $event

@@ -6,7 +6,7 @@
       autocorrect="off"
       autocapitalize="off"
       tabindex="1"
-      v-bind:style="{ direction: 'ltr', backgroundColor: theme.input}"
+      v-bind:style="{ direction: 'ltr', backgroundColor: theme.input }"
       autofocus
       v-model="inputWord"
       v-on:input="setText($event)"
@@ -68,9 +68,6 @@ export default {
         this.inputWord = '';
         this.$emit('nextWord', word);
       } else this.$emit('character');
-    },
-    log(event) {
-      console.log(event);
     },
   },
 };

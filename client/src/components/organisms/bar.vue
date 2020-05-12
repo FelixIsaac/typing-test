@@ -4,7 +4,7 @@
       v-bind:mode="settings.mode"
       v-on:set="$emit('set', $event)"
       v-bind:setSeconds="settings.seconds"
-      v-bind:currSeconds="result.seconds"
+      v-bind:words="settings.words"
       v-bind:theme="theme"
     />
     <matrix

@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div v-bind:style="{ color: theme.quickSettings }">
+    Timer:
     <span
       v-on:click="$emit('setTime', 15)"
       v-bind:style="{
