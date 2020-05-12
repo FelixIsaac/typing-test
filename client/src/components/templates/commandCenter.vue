@@ -35,6 +35,7 @@
             v-on:redo="redo()"
             v-on:character="$emit('character')"
             v-bind:theme="theme"
+            v-bind:settings="settings"
           />
         </mdb-card-body>
       </mdb-card>
@@ -44,7 +45,6 @@
 
 <script>
 import { mdbContainer, mdbCard, mdbCardBody } from 'mdbvue';
-import { get } from 'axios';
 import bar from '../organisms/bar.vue';
 import controls from '../molecules/controls.vue';
 
@@ -102,6 +102,8 @@ export default {
 
       const index = this.result.words.findIndex(({ typed }) => !typed);
       const Word = word.trim();
+
+      if (!this.result.words[index]) return;
 
       // update text
       if (Word === this.result.words[index].word) {

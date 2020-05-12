@@ -130,7 +130,7 @@ export default {
         text: String,
       },
     },
-    words: [],
+    words: Array,
   },
   data() {
     return {

@@ -5,6 +5,7 @@ import 'vue-material/dist/vue-material.min.css';
 import 'vue-material/dist/theme/default.css';
 import Vue from 'vue';
 import VueCookies from 'vue-cookies';
+import VueHotKey from 'v-hotkey';
 import App from './App.vue';
 import router from './router';
 import './registerServiceWorker';
@@ -12,6 +13,7 @@ import './registerServiceWorker';
 Vue.config.productionTip = false;
 
 Vue.use(VueCookies);
+Vue.use(VueHotKey);
 
 new Vue({
   router,

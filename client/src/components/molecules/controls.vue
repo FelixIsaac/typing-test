@@ -15,6 +15,7 @@
         size="md"
         slot="append"
         class="btn btn-md ripple-parent m-0 px-3 py-2"
+        v-hotkey="{ [settings.redoHotkey]: { 'keyup': () => $emit('redo') } }"
         v-bind:style="{ backgroundColor: theme.redoBtn.body, color: theme.redoBtn.text }"
         v-on:click="$emit('redo')"
       >
@@ -52,6 +53,9 @@ export default {
         body: String,
         text: String,
       },
+    },
+    settings: {
+      redoHotkey: String,
     },
   },
   data() {
