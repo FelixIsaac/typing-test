@@ -44,6 +44,7 @@
 
 <script>
 import { mdbContainer, mdbCard, mdbCardBody } from 'mdbvue';
+import { get } from 'axios';
 import bar from '../organisms/bar.vue';
 import controls from '../molecules/controls.vue';
 
@@ -135,13 +136,15 @@ export default {
         }
       }
 
+      // check if user is about to finish words before timer is finished
+      if (this.result.words.filter(({ typed: t }) => !t).length <= 20 && this.settings.mode === 'timer') this.$emit('loadMore');
+
       this.$forceUpdate();
     },
     redo() {
       const words = this.$refs.words.childNodes;
-
       this.$emit('redo');
-      for (let i = 0; i < words.length + 1; i += 1) words[i].style.display = '';
+      for (let i = 0; i < words.length; i += 1) words[i].style.display = '';
     },
   },
 };

@@ -2,10 +2,10 @@
   <div v-bind:style="{ color: theme.matrix }">
     <template>
       <span v-if="measurement === 'wps'">
-        WPS: {{ ((((characters / 5) - incorrectWords()) / seconds) || 0).toFixed(1) }}
+        WPS: {{ (((characters / 5) / seconds) || 0).toFixed(1) }}
       </span>
       <span v-else>
-        WPM: {{ ((((characters / 5) - incorrectWords()) / (seconds / 60)) || 0).toFixed(1) }}
+        WPM: {{ (((characters / 5) / (seconds / 60)) || 0).toFixed(1) }}
       </span>
     </template>
     <span>

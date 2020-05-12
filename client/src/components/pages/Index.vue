@@ -10,6 +10,7 @@
       v-on:settings="toggleSettings()"
       v-on:redo="redo()"
       v-on:character="result.characters += 1"
+      v-on:loadMore="loadMore()"
     />
     <settings
       v-on:close="settings.open = false"
@@ -23,7 +24,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { get } from 'axios';
 import commandCenter from '@/components/templates/commandCenter.vue';
 import settings from '@/components/organisms/settings.vue';
 
@@ -94,26 +95,41 @@ export default {
       this.settings = this.$cookies.get('settings');
       this.theme = this.$cookies.get('theme');
     },
-    generate() {
-      axios.get(`${process.env.VUE_APP_BASE_API}generate`, {
-        params: {
-          length: this.settings.words,
-          punctuation: this.settings.punctuation,
-          caps: this.settings.caps,
-          wordLength: this.settings.wordLength.length,
-          wordSelect: this.settings.wordLength.selectOnly,
-        },
-      })
-        .then(({ data }) => {
-          if (data.error) return console.error(data.error);
-          if (!data.response) return 'No response';
+    async load() {
+      try {
+        const { data } = await get(`${process.env.VUE_APP_BASE_API}generate`, {
+          params: {
+            length: this.settings.words,
+            punctuation: this.settings.punctuation,
+            caps: this.settings.caps,
+            wordLength: this.settings.wordLength.length,
+            wordSelect: this.settings.wordLength.selectOnly,
+          },
+        });
 
-          this.result.words = data.response.map((word) => ({
-            wrong: false, typed: false, word, newWord: '',
-          }));
-          return console.log('Imported data from server');
-        })
-        .catch(console.error);
+        if (data.error) return console.error(data.error);
+        if (!data.response) return console.error('No response from server');
+
+        return data;
+      } catch (err) {
+        console.error(err);
+      }
+
+      return console.log('Loaded data from server');
+    },
+    async generate() {
+      const { response: words } = await this.load();
+
+      this.result.words = words.map((word) => ({
+        wrong: false, typed: false, word, newWord: '',
+      }));
+    },
+    async loadMore() {
+      const { response: words } = await this.load();
+
+      this.result.words = this.result.words.concat(words.map((word) => ({
+        wrong: false, typed: false, word, newWord: '',
+      })));
     },
     redo() {
       this.result.seconds = 0;
