@@ -32,7 +32,7 @@
             v-on:nextWord="nextWord($event)"
             v-on:start="$emit('start')"
             v-on:settings="$emit('settings')"
-            v-on:redo="$emit('redo')"
+            v-on:redo="redo()"
             v-on:character="$emit('character')"
             v-bind:theme="theme"
           />
@@ -119,12 +119,14 @@ export default {
         };
       }
 
+      const words = this.$refs.words.childNodes;
+
       if (!this.result.words.filter(({ typed: t }) => !t).length) {
         // check if user completed text, no more words to be typed, end typing test
         if (this.settings.mode === 'words') this.$emit('end');
+        for (let i = 0; i < words.length; i += 1) words[i].style.display = '';
       } else {
         // check if it is needed to update to next line
-        const words = this.$refs.words.childNodes;
         const { top: currentWordSize } = words[index].getBoundingClientRect();
         const { top: nextWordSize } = words[index + 1].getBoundingClientRect();
         if (currentWordSize < nextWordSize) {
@@ -134,6 +136,12 @@ export default {
       }
 
       this.$forceUpdate();
+    },
+    redo() {
+      const words = this.$refs.words.childNodes;
+
+      this.$emit('redo');
+      for (let i = 0; i < words.length + 1; i += 1) words[i].style.display = '';
     },
   },
 };

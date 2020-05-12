@@ -12,7 +12,7 @@
             id="check-measurement"
             v-model="mode"
             v-on:change="$emit('select', {
-              key: 'mode',
+              key: 'measurement',
               value: $event
             })"
           />
@@ -30,7 +30,7 @@
             id="time-measurement"
             v-model="measurement"
             v-on:change="$emit('select', {
-              key: 'measurement',
+              key: 'mode',
               value: $event
             })"
           />
