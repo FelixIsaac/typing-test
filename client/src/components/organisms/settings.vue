@@ -4,7 +4,6 @@
     elegant
     scrollable
     v-bind:show="initOpen"
-    v-bind:color="initTheme.commandCenterBody"
     v-on:close="$emit('cancel')"
   >
     <mdb-modal-header>
@@ -12,7 +11,7 @@
         Settings
       </mdb-modal-title>
     </mdb-modal-header>
-    <mdb-modal-body>
+    <mdb-modal-body v-bind:style="{ backgroundColor: initTheme.input }">
       <mdb-row>
         <mdb-col sm="6">
           <measurement
@@ -52,14 +51,40 @@
         class="mt-3"
       />
     </mdb-modal-body>
-    <mdb-modal-footer style="justify-content: space-between;">
+    <mdb-modal-footer
+      style="justify-content: space-between;"
+    >
       <div>
-        <mdb-btn size="sm">Export settings</mdb-btn>
-        <mdb-btn size="sm">Import settings</mdb-btn>
+        <mdb-btn
+          size="sm"
+          color="mdb-color"
+        >
+          Export settings
+        </mdb-btn>
+        <mdb-btn
+          size="sm"
+          color="mdb-color"
+        >
+          Import settings
+        </mdb-btn>
       </div>
       <div>
-        <mdb-btn color="secondary" size="sm" v-on:click="$emit('cancel')">Cancel</mdb-btn>
-        <mdb-btn color="primary" size="sm" v-on:click="save()">Save changes</mdb-btn>
+        <mdb-btn
+          size="sm"
+          color="elegant"
+          v-on:click="$emit('cancel')"
+          v-bind:style="{ color: initTheme.selectedQuickSetting }"
+        >
+          Cancel
+        </mdb-btn>
+        <mdb-btn
+          size="sm"
+          color="dark"
+          v-on:click="save()"
+          v-bind:style="{ color: initTheme.quickSettings }"
+        >
+          Save changes
+        </mdb-btn>
       </div>
     </mdb-modal-footer>
   </mdb-modal>
