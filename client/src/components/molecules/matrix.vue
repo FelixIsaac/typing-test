@@ -2,10 +2,10 @@
   <div v-bind:style="{ color: theme.matrix }">
     <template>
       <span v-if="measurement === 'wps'">
-        WPS: {{ ((correctWords() / seconds) | 0).toFixed(1) }}
+        WPS: {{ ((((characters / 5) - incorrectWords()) / seconds) || 0).toFixed(1) }}
       </span>
       <span v-else>
-        WPM: {{ ((correctWords() / (seconds / 60)) | 0).toFixed(1) }}
+        WPM: {{ ((((characters / 5) - incorrectWords()) / (seconds / 60)) || 0).toFixed(1) }}
       </span>
     </template>
     <span>
@@ -21,6 +21,7 @@ export default {
     measurement: String,
     words: Array,
     seconds: Number,
+    characters: Number,
     theme: {
       matrix: String,
     },
@@ -28,7 +29,7 @@ export default {
   methods: {
     accuracy() {
       const typedWords = this.words.filter(({ typed }) => typed).length;
-      const acc = ((this.correctWords() - this.incorrectWords()) / typedWords) * 100;
+      const acc = (this.correctWords() / typedWords) * 100;
 
       if (Number.isNaN(acc) || (Math.sign(acc)).valueOf() === -1) return '0.0';
       return acc.toFixed(1).toString();

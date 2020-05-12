@@ -9,6 +9,7 @@
       v-on:end="end()"
       v-on:settings="toggleSettings()"
       v-on:redo="redo()"
+      v-on:character="result.characters += 1"
     />
     <settings
       v-on:close="settings.open = false"
@@ -37,7 +38,8 @@ export default {
       settings: this.$cookies.get('settings'),
       theme: this.$cookies.get('theme'),
       result: {
-        words: '',
+        words: [],
+        characters: 0,
         seconds: 0,
       },
       started: false,
@@ -114,6 +116,9 @@ export default {
         .catch(console.error);
     },
     redo() {
+      this.result.seconds = 0;
+      this.result.characters = 0;
+
       this.end();
       this.generate();
     },

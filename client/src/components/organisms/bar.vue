@@ -12,6 +12,7 @@
       v-bind:words="result.words"
       v-bind:seconds="result.seconds"
       v-bind:theme="theme"
+      v-bind:characters="result.characters"
     />
   </div>
 </template>

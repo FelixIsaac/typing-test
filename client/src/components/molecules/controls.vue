@@ -67,7 +67,10 @@ export default {
       if (key && key.startsWith(' ')) {
         this.inputWord = '';
         this.$emit('nextWord', word);
-      }
+      } else this.$emit('character');
+    },
+    log(event) {
+      console.log(event);
     },
   },
 };
