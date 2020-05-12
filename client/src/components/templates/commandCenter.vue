@@ -9,24 +9,31 @@
       />
       <mdb-card id="typing-area" v-bind:style="{ backgroundColor: theme.commandCenterBody }">
         <mdb-card-body>
-          <span
-            v-for="(word, key) in result.words"
-            v-bind:key="key"
-            v-bind:style="{
-              'color': word.wrong && word.typed ? theme.words.incorrect :
-                !word.wrong && word.typed ? theme.words.correct :
-                result.words[key - 1] ?
-                (result.words[key -1].typed ? theme.words.current : theme.words.untyped) :
-                theme.words.current
-            }"
+          <div
+            class="text-area text-monospace"
+            style="display: block; height: 2.6rem; direction: ltr;"
+            ref="words"
           >
-            {{ word.word }}
-          </span>
+            <span
+              v-for="(word, key) in result.words"
+              v-bind:key="key"
+              v-bind:style="{
+                'color': word.wrong && word.typed ? theme.words.incorrect :
+                  !word.wrong && word.typed ? theme.words.correct :
+                  result.words[key - 1] ?
+                  (result.words[key -1].typed ? theme.words.current : theme.words.untyped) :
+                  theme.words.current
+              }"
+            >
+              {{ word.word }}
+            </span>
+          </div>
           <controls
             v-on:nextWord="nextWord($event)"
             v-on:start="$emit('start')"
             v-on:settings="$emit('settings')"
             v-on:redo="$emit('redo')"
+            v-on:character="$emit('character')"
             v-bind:theme="theme"
           />
         </mdb-card-body>
@@ -56,6 +63,7 @@ export default {
         word: String,
       }],
       seconds: Number,
+      characters: Number,
     },
     word: {
       wrong: Boolean,
@@ -91,11 +99,10 @@ export default {
     nextWord(word) {
       if (!word) return;
 
-      this.$forceUpdate();
-
       const index = this.result.words.findIndex(({ typed }) => !typed);
       const Word = word.trim();
 
+      // update text
       if (Word === this.result.words[index].word) {
         this.result.words[index] = {
           wrong: false,
@@ -112,11 +119,21 @@ export default {
         };
       }
 
-      // check if user completed text
-      if (this.settings.mode === 'words') {
-        // no more words to be typed, end typing test
-        if (!this.result.words.filter(({ typed: t }) => !t).length) this.$emit('end');
+      if (!this.result.words.filter(({ typed: t }) => !t).length) {
+        // check if user completed text, no more words to be typed, end typing test
+        if (this.settings.mode === 'words') this.$emit('end');
+      } else {
+        // check if it is needed to update to next line
+        const words = this.$refs.words.childNodes;
+        const { top: currentWordSize } = words[index].getBoundingClientRect();
+        const { top: nextWordSize } = words[index + 1].getBoundingClientRect();
+        if (currentWordSize < nextWordSize) {
+          // update next line
+          for (let i = 0; i < index + 1; i += 1) words[i].style.display = 'none';
+        }
       }
+
+      this.$forceUpdate();
     },
   },
 };
@@ -148,5 +165,11 @@ export default {
     justify-content: space-between;
     font-family: Roboto Mono, sans-serif;
     font-size: 18px;
+  }
+
+  .text-area {
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: all .4s ease-in-out 0s;
   }
 </style>
