@@ -58,15 +58,19 @@
         <mdb-btn
           size="sm"
           color="mdb-color"
+          v-on:click="exportSettings()"
         >
-          Export settings
+          Export settings & themes
         </mdb-btn>
-        <mdb-btn
-          size="sm"
-          color="mdb-color"
-        >
-          Import settings
-        </mdb-btn>
+        <label class="btn btn-mdb-color btn-sm ripple-parent">
+          <input
+            type="file"
+            style="display: none;"
+            v-on:change="importSettings($event.target.files)"
+            accept="application/json"
+          >
+          <span>Import settings & themes</span>
+        </label>
       </div>
       <div>
         <mdb-btn
@@ -174,6 +178,36 @@ export default {
         theme: this.theme,
         settings: this.settings,
       });
+    },
+    exportSettings() {
+      const data = JSON.stringify({
+        settings: this.settings,
+        theme: this.theme,
+      });
+      const blob = new Blob([data], { type: 'text/plain' });
+      const e = document.createEvent('MouseEvents');
+      const a = document.createElement('a');
+      a.download = 'typing-test.json';
+      a.href = window.URL.createObjectURL(blob);
+      a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+      e.initEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+      a.dispatchEvent(e);
+    },
+    importSettings(props) {
+      const fileReader = new FileReader();
+
+      fileReader.onload = () => {
+        try {
+          // Get btoa data and decode it to JSON string, then parse string to object
+          const data = JSON.parse(atob(fileReader.result.split(',')[1]));
+          if (data.theme) this.theme = { ...this.theme, ...data.theme };
+          if (data.settings) this.settings = { ...this.settings, ...data.settings };
+        } catch (err) {
+          console.error(err);
+        }
+      };
+
+      fileReader.readAsDataURL(props[0]);
     },
   },
 };

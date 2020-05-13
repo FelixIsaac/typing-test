@@ -50,6 +50,8 @@ export default {
   },
   methods: {
     setSettings(event) {
+      this.redo();
+
       this.save({
         settings: {
           ...this.settings,
