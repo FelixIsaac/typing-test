@@ -3,6 +3,9 @@
     <mdb-card-body>
       <mdb-card-title>
         Theme
+        <mdb-btn size="sm" color="elegant" class="mb-2" v-on:click="random()">
+          Randomize
+        </mdb-btn>
       </mdb-card-title>
       <mdb-card-text>
         <p v-for="(theming, index) in convert" v-bind:key="index">
@@ -31,13 +34,14 @@ import {
   mdbCardBody,
   mdbCardTitle,
   mdbCardText,
+  mdbBtn,
 } from 'mdbvue';
 import { Chrome } from 'vue-color';
 
 export default {
   name: 'wordLength',
   components: {
-    mdbCard, mdbCardBody, mdbCardTitle, mdbCardText, Chrome,
+    mdbCard, mdbCardBody, mdbCardTitle, mdbCardText, Chrome, mdbBtn,
   },
   props: {
     initTheme: {
@@ -74,6 +78,20 @@ export default {
       if (this.selectedPicker.split('.').length > 1) this.theme[this.selectedPicker.split('.')[0]][this.selectedPicker.split('.')[1]] = hex;
       else this.theme[this.selectedPicker] = hex;
     },
+    random() {
+      this.convert.forEach((theme) => {
+        const hex = `#${Math.floor((Math.random() * 0xFFFFFF)).toString(16)}`;
+
+        this.togglePicker(theme.key);
+        this.pickerShown = false;
+        this.updateSelector(hex);
+
+        this.$emit('set', {
+          key: theme.key,
+          value: hex,
+        });
+      });
+    },
   },
   computed: {
     convert() {
@@ -102,7 +120,6 @@ export default {
   updated() {
     const key = this.selectedPicker;
     if (!key) return;
-
     this.$emit('set', {
       key,
       value: this.selectedPicker.split('.').reduce((a, b) => a[b], this.theme),
