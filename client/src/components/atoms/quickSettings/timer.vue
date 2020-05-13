@@ -6,55 +6,49 @@
       v-bind:style="{
         color: setSeconds === 15 ? theme.selectedQuickSetting : theme.quickSettings
       }"
-    >15</span>
+    >{{ setSeconds === 15 ? setSeconds - result.seconds : '15' }}</span>
     /
     <span
       v-on:click="$emit('setTime', 30)"
       v-bind:style="{
         color: setSeconds === 30 ? theme.selectedQuickSetting : theme.quickSettings
       }"
-    >30</span>
+    >{{ setSeconds === 30 ? setSeconds - result.seconds : '30' }}</span>
     /
     <span
       v-on:click="$emit('setTime', 60)"
       v-bind:style="{
         color: setSeconds === 60 ? theme.selectedQuickSetting : theme.quickSettings
       }"
-    >60</span>
+    >{{ setSeconds === 60 ?  setSeconds - result.seconds : '60' }}</span>
     /
     <span
       v-on:click="$emit('setTime', 120)"
       v-bind:style="{
         color: setSeconds === 120 ? theme.selectedQuickSetting : theme.quickSettings
       }"
-    >120</span>
+    >{{ setSeconds === 120 ?  setSeconds - result.seconds : '120' }}</span>
     /
     <span
       v-on:click="$emit('setTime', 240)"
       v-bind:style="{
         color: setSeconds === 240 ? theme.selectedQuickSetting : theme.quickSettings
       }"
-    >240</span>
+    >{{ setSeconds === 240 ?  setSeconds - result.seconds : '240' }}</span>
     /
     <span
       v-on:click="$emit('setTime', 360)"
       v-bind:style="{
         color: setSeconds === 360 ? theme.selectedQuickSetting : theme.quickSettings
       }"
-    >360</span>
+    >{{ setSeconds === 360 ?  setSeconds - result.seconds : '360' }}</span>
   </div>
 </template>
 
 <script>
 export default {
   name: 'timer',
-  props: {
-    setSeconds: Number,
-    theme: {
-      quickSettings: String,
-      selectedQuickSetting: String,
-    },
-  },
+  props: ['setSeconds', 'result', 'theme'],
 };
 </script>
 

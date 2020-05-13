@@ -1,11 +1,12 @@
 <template>
   <div class="bar">
     <quick-settings
-      v-bind:mode="settings.mode"
       v-on:set="$emit('set', $event)"
       v-bind:setSeconds="settings.seconds"
+      v-bind:mode="settings.mode"
       v-bind:words="settings.words"
       v-bind:theme="theme"
+      v-bind:result="result"
     />
     <matrix
       v-bind:measurement="settings.measurement"
