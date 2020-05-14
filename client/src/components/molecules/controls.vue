@@ -6,16 +6,16 @@
       autocorrect="off"
       autocapitalize="off"
       tabindex="1"
-      v-bind:style="{ direction: 'ltr', backgroundColor: theme.input }"
       autofocus
       v-model="inputWord"
       v-on:input="setText($event)"
+      v-bind:style="{ direction: 'ltr', backgroundColor: theme.input }"
     >
       <button
         size="md"
         slot="append"
         class="btn btn-md ripple-parent m-0 px-3 py-2"
-        v-hotkey="{ [settings.redoHotkey]: { 'keyup': () => $emit('redo') } }"
+        v-hotkey="{ [settings.redoHotkey]: { 'keyup': redo } }"
         v-bind:style="{ backgroundColor: theme.redoBtn.body, color: theme.redoBtn.text }"
         v-on:click="redo()"
       >
@@ -56,6 +56,9 @@ export default {
     },
     settings: {
       redoHotkey: String,
+    },
+    result: {
+      started: Boolean,
     },
   },
   data() {
