@@ -10,6 +10,10 @@
       v-model="inputWord"
       v-on:input="setText($event)"
       v-bind:style="{ direction: 'ltr', backgroundColor: theme.input }"
+      v-bind:disabled="settings.mode === 'timer' ?
+        result.seconds >= settings.seconds :
+        result.words.filter(({ typed: t }) => t).length + 1 >= settings.words
+      "
     >
       <button
         size="md"

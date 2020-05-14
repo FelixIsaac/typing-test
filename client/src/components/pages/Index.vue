@@ -43,8 +43,8 @@ export default {
         words: [],
         characters: 0,
         seconds: 0,
+        started: false,
       },
-      started: false,
       interval: null,
     };
   },
@@ -61,22 +61,23 @@ export default {
       });
     },
     start() {
-      if (this.started) return;
+      if (this.result.started) return;
 
-      this.started = true;
+      this.result.started = true;
 
       this.interval = setInterval(() => {
         this.result.seconds += 1;
-        if (this.result.seconds >= this.settings.seconds) {
+        // only for timer
+        if (this.settings.mode === 'timer') {
           clearInterval(this.interval);
-          this.started = false;
+          this.result.started = false;
         }
       }, 1000);
     },
     end() {
-      if (!this.started) return;
+      if (!this.result.started) return;
 
-      this.started = false;
+      this.result.started = false;
       clearInterval(this.interval);
     },
     toggleSettings() {
@@ -102,7 +103,7 @@ export default {
       try {
         const { data } = await get(`${process.env.VUE_APP_BASE_API}generate`, {
           params: {
-            length: this.settings.words,
+            length: this.settings.mode === 'timer' ? 50 : this.settings.words,
             punctuation: this.settings.punctuation,
             caps: this.settings.caps,
             wordLength: this.settings.wordLength.length,

@@ -89,7 +89,7 @@ export function generate(length: number, options: GenerateOptions) {
   const filteredWords: string[] = filterLength(selectWordList(options.wordLength.length), options.wordLength.selector, options.wordLength.length);
   let words: string[] = [];
 
-  for (let i = 1; i < length; i++) {
+  for (let i = 0; i < length; i++) {
     const word: string = filteredWords[Math.floor(Math.random() * filteredWords.length)];
     words.push(word);
   }

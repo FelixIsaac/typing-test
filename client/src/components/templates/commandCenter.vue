@@ -35,6 +35,7 @@
             v-on:redo="redo()"
             v-on:character="$emit('character')"
             v-bind:theme="theme"
+            v-bind:result="result"
             v-bind:settings="settings"
           />
         </mdb-card-body>
