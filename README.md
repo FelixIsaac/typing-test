@@ -1,16 +1,20 @@
 # typing-test
 
 Modern typing test which supports custom themes, redo hotkeys and configurable settings.
+
 ![](images/main.png)
 
 ## Theme
 To change your theme; go to settings (click on the setting icon beside the redo button)
+
 ![](images/settingsIcon.png)
 
 After clicking on the setting icon,you'll see the settings
+
 ![](images/settings.png)
 
 You can change the themes though here. This is an example of me changing the theme.
+
 ![](images/changingTheme.gif)
 
 ## Word length
