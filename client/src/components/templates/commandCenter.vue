@@ -105,7 +105,6 @@ export default {
       const Word = word.trim();
 
       if (!this.result.words[index]) return;
-
       // update text
       if (Word === this.result.words[index].word) {
         this.result.words[index] = {
