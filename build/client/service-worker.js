@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.97297ca73664a7ec6eae36099cca5c6e.js"
+  "/precache-manifest.5bb2d97b78aacc2e923edc7a5a792c98.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "typing-test"});
