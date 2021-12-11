@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "bootstrap-css-only": "^4.4.1",
     "core-js": "^3.6.4",
     "mdbvue": "6.7.1",
