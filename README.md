@@ -1,3 +1,8 @@
+> [!NOTE]
+> **📦 Archived — no longer maintained.**
+> A Vue + Express typing-speed test built in 2020, with custom themes, configurable word-length filters, and a rebindable redo hotkey. Got to a working, documented state — then stopped there.
+> _Archived — kept as a record._
+
 # typing-test
 
 Modern typing test which supports custom themes, redo hotkeys and configurable settings.
